@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>IGSOSA Member Birthday Flyer for Ajadi Victoria</title>
+    <title>IGSOSA Member Birthday Flyer Generator</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
       rel="stylesheet"
@@ -13,18 +13,29 @@
       rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+      :root {
+        --theme-base: #4c1d95;
+        --theme-accent: #fbbf24;
+        --theme-border: #6d28d9;
+        --theme-darker: #2e1065;
+        --bg-light: #f5f3ff;
+        --bg-dark: #1e1b4b;
+      }
+    </style>
     <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
         theme: {
           extend: {
             colors: {
-              "theme-base": "#5c0f54",
-              "theme-accent": "#e0aaff",
-              "theme-border": "#75206d",
-              "theme-darker": "#3b0836",
-              "background-light": "#faf0f9",
-              "background-dark": "#2f042e",
+              "theme-base": "var(--theme-base)",
+              "theme-accent": "var(--theme-accent)",
+              "theme-border": "var(--theme-border)",
+              "theme-darker": "var(--theme-darker)",
+              "background-light": "var(--bg-light)",
+              "background-dark": "var(--bg-dark)",
             },
             fontFamily: {
               display: ["Plus Jakarta Sans", "sans-serif"],
@@ -41,34 +52,80 @@
     </script>
   </head>
   <body
-    class="bg-background-light dark:bg-background-dark font-display min-h-screen flex items-center justify-center p-4 md:p-8"
+    class="bg-background-light dark:bg-background-dark font-display min-h-screen flex flex-col items-center justify-center p-4 md:p-8 gap-8 transition-colors duration-500"
   >
+    <!-- Control Panel -->
     <div
-      class="relative w-full max-w-[640px] bg-theme-base rounded-xl shadow-2xl overflow-hidden flex flex-col items-center text-white border border-theme-border"
+      class="w-full max-w-[640px] bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 z-50"
+    >
+      <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">
+        Flyer Details
+      </h3>
+      <div class="space-y-4">
+        <div>
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            >Celebrant's Name</label
+          >
+          <input
+            type="text"
+            id="nameInput"
+            placeholder="e.g. Amoo Afeez Olabayo"
+            class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-theme-accent focus:ring-theme-accent"
+          />
+        </div>
+        <div>
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            >Upload Picture</label
+          >
+          <input
+            type="file"
+            id="photoInput"
+            accept="image/*"
+            class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 dark:file:bg-gray-700 dark:file:text-gray-300 transition-colors"
+          />
+        </div>
+        <div>
+          <button
+            id="regenThemeBtn"
+            class="w-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600"
+          >
+            <span class="material-symbols-outlined">palette</span>
+            Change Colors
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flyer Container -->
+    <div
+      id="flyer"
+      class="relative w-full max-w-[640px] bg-theme-base rounded-xl shadow-2xl overflow-hidden flex flex-col items-center text-white border border-theme-border transition-colors duration-500"
     >
       <div
         class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0"
       >
         <div
-          class="absolute -top-24 -right-24 w-64 h-64 bg-theme-accent/20 rounded-full blur-3xl"
+          class="absolute -top-24 -right-24 w-64 h-64 bg-theme-accent/20 rounded-full blur-3xl transition-colors duration-500"
         ></div>
         <div
-          class="absolute top-1/2 -left-32 w-80 h-80 bg-theme-accent/10 rounded-full blur-3xl"
+          class="absolute top-1/2 -left-32 w-80 h-80 bg-theme-accent/10 rounded-full blur-3xl transition-colors duration-500"
         ></div>
         <div
-          class="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-t from-theme-accent/10 to-transparent opacity-50"
+          class="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-t from-theme-accent/10 to-transparent opacity-50 transition-colors duration-500"
         ></div>
         <span
-          class="material-symbols-outlined absolute top-20 left-10 text-theme-accent/30 text-4xl animate-bounce"
+          class="material-symbols-outlined absolute top-20 left-10 text-theme-accent/30 text-4xl animate-bounce transition-colors duration-500"
           style="animation-duration: 3s"
           >star</span
         >
         <span
-          class="material-symbols-outlined absolute top-40 right-10 text-theme-accent/20 text-2xl animate-pulse"
+          class="material-symbols-outlined absolute top-40 right-10 text-theme-accent/20 text-2xl animate-pulse transition-colors duration-500"
           >celebration</span
         >
         <span
-          class="material-symbols-outlined absolute bottom-32 left-16 text-theme-accent/20 text-3xl"
+          class="material-symbols-outlined absolute bottom-32 left-16 text-theme-accent/20 text-3xl transition-colors duration-500"
           >local_activity</span
         >
       </div>
@@ -76,7 +133,9 @@
         class="relative z-10 flex flex-col items-center justify-center w-full pt-10 pb-2"
       >
         <div class="flex items-center gap-3 mb-2">
-          <div class="bg-white/10 p-2 rounded-lg text-theme-accent">
+          <div
+            class="bg-white/10 p-2 rounded-lg text-theme-accent transition-colors duration-500"
+          >
             <img
               src="IGSBlueLogo-newblue2.png"
               alt="IGSOSA Logo"
@@ -87,14 +146,16 @@
             IGSOSA '07
           </h2>
         </div>
-        <div class="h-1 w-16 bg-theme-accent rounded-full mt-2"></div>
+        <div
+          class="h-1 w-16 bg-theme-accent rounded-full mt-2 transition-colors duration-500"
+        ></div>
       </header>
       <main
         class="relative z-10 flex flex-col items-center w-full px-6 py-6 text-center"
       >
         <div class="mb-8 relative">
           <h1
-            class="text-5xl md:text-7xl font-extrabold text-theme-accent leading-none tracking-tight drop-shadow-sm"
+            class="text-5xl md:text-7xl font-extrabold text-theme-accent leading-none tracking-tight drop-shadow-sm transition-colors duration-500"
           >
             HAPPY<br />BIRTHDAY
           </h1>
@@ -105,29 +166,34 @@
         </div>
         <div class="mb-8 relative group">
           <div
-            class="absolute inset-0 rounded-full border-2 border-dashed border-theme-accent/40 animate-[spin_10s_linear_infinite]"
+            class="absolute inset-0 rounded-full border-2 border-dashed border-theme-accent/40 animate-[spin_10s_linear_infinite] transition-colors duration-500"
           ></div>
           <div
-            class="absolute -inset-2 bg-gradient-to-tr from-theme-accent/40 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            class="absolute -inset-2 bg-gradient-to-tr from-theme-accent/40 to-transparent rounded-full opacity-100 group-hover:opacity-100 transition-opacity duration-500"
           ></div>
           <div
-            class="relative size-64 md:size-72 rounded-full border-4 border-white/20 shadow-xl overflow-hidden bg-theme-base"
+            class="relative size-64 md:size-72 rounded-full border-4 border-white/20 shadow-xl overflow-hidden bg-theme-base transition-colors duration-500"
           >
             <img
-              alt="Ajadi Victoria"
+              id="userImage"
+              alt="Celebrant Photo"
               class="w-full h-full object-cover object-top"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNUMvomYGIrTJYtcLI1vv-MQY7Dq8fRFte-BfLKAIraTLoPgg-jldc532pfA_XT8WbCtz_GqXSbjKcA4VZ-wZA7KU52sEyds9kQAPH5cV8UQHPxcaq9zruyAbl5Ze1mi7LLKSI9tc5mCUX0HZfH2zMh4K7xv9F7I3ROIaahWF_z2rJmpQVgkid1zCRxGMHdi8OHILhbYtr0h1uV5Oz35dzOCi3jmX6khU38FWo6pky2nzQmEK6TCqlLF2a3grGgFC84I_jZYhvsC1k"
+              src="IGSOSA_Birthday.png"
             />
           </div>
         </div>
         <div class="space-y-3 mb-6">
-          <h2 class="text-3xl md:text-4xl font-bold text-white tracking-tight">
-            Ajadi Victoria
+          <h2
+            id="userName"
+            class="text-3xl md:text-4xl font-bold text-white tracking-tight"
+          >
+            [Celebrant Name]
           </h2>
           <div
             class="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-white/10 border border-white/20"
           >
-            <span class="material-symbols-outlined text-theme-accent text-sm"
+            <span
+              class="material-symbols-outlined text-theme-accent text-sm transition-colors duration-500"
               >verified</span
             >
             <span
@@ -137,30 +203,386 @@
           </div>
         </div>
         <div class="max-w-md mx-auto">
-          <p class="text-sm md:text-base text-gray-200 leading-relaxed">
-            Wishing you a day filled with joy, laughter, and all the wonderful
-            things you deserve. May this new year of your life bring you endless
-            blessings and happiness! 🎉🎂
+          <p
+            id="birthdayMessage"
+            class="text-sm md:text-base text-gray-200 leading-relaxed"
+          >
+            Wishing you a wonderful birthday celebration!
           </p>
         </div>
       </main>
       <footer
-        class="relative z-10 w-full bg-theme-darker py-6 mt-4 border-t border-white/10 flex flex-col items-center justify-center gap-2"
+        class="relative z-10 w-full bg-theme-darker py-6 mt-4 border-t border-white/10 flex flex-col items-center justify-center gap-2 transition-colors duration-500"
       >
         <p class="text-sm font-medium text-gray-400 uppercase tracking-widest">
           From all of us at IGSOSA '07
         </p>
-        <div class="flex gap-4 mt-1">
+        <!-- <div class="flex gap-4 mt-1">
           <span
-            class="material-symbols-outlined text-gray-400 text-xl cursor-pointer hover:text-theme-accent transition-colors"
+            class="material-symbols-outlined text-gray-400 text-xl cursor-pointer hover:text-theme-accent transition-colors duration-500"
             >language</span
           >
           <span
-            class="material-symbols-outlined text-gray-400 text-xl cursor-pointer hover:text-theme-accent transition-colors"
+            class="material-symbols-outlined text-gray-400 text-xl cursor-pointer hover:text-theme-accent transition-colors duration-500"
             >mail</span
           >
-        </div>
+        </div> -->
       </footer>
     </div>
+
+    <!-- Download Button -->
+    <button
+      id="downloadBtn"
+      disabled
+      class="fixed bottom-8 right-8 bg-theme-accent text-theme-darker font-bold py-3 px-6 rounded-full shadow-lg hover:bg-white transition-all flex items-center gap-2 z-50 transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      <span class="material-symbols-outlined">download</span>
+      Download Flyer
+    </button>
+
+    <script>
+      // --- Data ---
+      const themes = [
+        // 1. Violet & Gold
+        {
+          base: "#4c1d95",
+          accent: "#fbbf24",
+          border: "#6d28d9",
+          darker: "#2e1065",
+          bgLight: "#f5f3ff",
+          bgDark: "#1e1b4b",
+        },
+        // 2. Teal & Amber
+        {
+          base: "#0f766e",
+          accent: "#f59e0b",
+          border: "#115e59",
+          darker: "#042f2e",
+          bgLight: "#f0fdfa",
+          bgDark: "#134e4a",
+        },
+        // 3. Rose & Pink
+        {
+          base: "#be123c",
+          accent: "#fbcfe8",
+          border: "#9f1239",
+          darker: "#881337",
+          bgLight: "#fff1f2",
+          bgDark: "#4c0519",
+        },
+        // 4. Blue & Sky
+        {
+          base: "#1e40af",
+          accent: "#7dd3fc",
+          border: "#1e3a8a",
+          darker: "#172554",
+          bgLight: "#eff6ff",
+          bgDark: "#1e3a8a",
+        },
+        // 5. Emerald & Lime
+        {
+          base: "#065f46",
+          accent: "#bef264",
+          border: "#064e3b",
+          darker: "#022c22",
+          bgLight: "#ecfccb",
+          bgDark: "#14532d",
+        },
+        // 6. Slate & Orange
+        {
+          base: "#334155",
+          accent: "#fdba74",
+          border: "#1e293b",
+          darker: "#0f172a",
+          bgLight: "#f8fafc",
+          bgDark: "#020617",
+        },
+        // 7. Indigo & Yellow
+        {
+          base: "#4338ca",
+          accent: "#fde047",
+          border: "#3730a3",
+          darker: "#312e81",
+          bgLight: "#eef2ff",
+          bgDark: "#1e1b4b",
+        },
+        // 8. Cyan & Fuchsia
+        {
+          base: "#0e7490",
+          accent: "#f0abfc",
+          border: "#155e75",
+          darker: "#164e63",
+          bgLight: "#ecfeff",
+          bgDark: "#083344",
+        },
+        // 9. Fuchsia & Cyan
+        {
+          base: "#a21caf",
+          accent: "#22d3ee",
+          border: "#86198f",
+          darker: "#701a75",
+          bgLight: "#fdf4ff",
+          bgDark: "#4a044e",
+        },
+        // 10. Red & Gold
+        {
+          base: "#b91c1c",
+          accent: "#ffd700",
+          border: "#991b1b",
+          darker: "#7f1d1d",
+          bgLight: "#fef2f2",
+          bgDark: "#450a0a",
+        },
+        // 11. Orange & Teal
+        {
+          base: "#c2410c",
+          accent: "#2dd4bf",
+          border: "#9a3412",
+          darker: "#7c2d12",
+          bgLight: "#fff7ed",
+          bgDark: "#431407",
+        },
+        // 12. Lime & Purple
+        {
+          base: "#4d7c0f",
+          accent: "#d8b4fe",
+          border: "#3f6212",
+          darker: "#365314",
+          bgLight: "#f7fee7",
+          bgDark: "#1a2e05",
+        },
+        // 13. Sky & Rose
+        {
+          base: "#0369a1",
+          accent: "#fda4af",
+          border: "#075985",
+          darker: "#0c4a6e",
+          bgLight: "#f0f9ff",
+          bgDark: "#082f49",
+        },
+        // 14. Pink & Emerald
+        {
+          base: "#db2777",
+          accent: "#34d399",
+          border: "#be185d",
+          darker: "#9d174d",
+          bgLight: "#fdf2f8",
+          bgDark: "#500724",
+        },
+        // 15. Violet & Lime
+        {
+          base: "#6d28d9",
+          accent: "#cbd5e1",
+          border: "#5b21b6",
+          darker: "#4c1d95",
+          bgLight: "#f3e8ff",
+          bgDark: "#3b0764",
+        },
+        // 16. Stone & Red
+        {
+          base: "#57534e",
+          accent: "#fca5a5",
+          border: "#44403c",
+          darker: "#292524",
+          bgLight: "#fafaf9",
+          bgDark: "#0c0a09",
+        },
+        // 17. Dark Blue & Gold
+        {
+          base: "#172554",
+          accent: "#fbbf24",
+          border: "#1e3a8a",
+          darker: "#020617",
+          bgLight: "#eff6ff",
+          bgDark: "#172554",
+        },
+        // 18. Green & White
+        {
+          base: "#1bd46e",
+          accent: "#ffffff",
+          border: "#10b981",
+          darker: "#064e3b",
+          bgLight: "#d1fae5",
+          bgDark: "#14532d",
+        },
+        // 19. Black & Gold
+        {
+          base: "#000000",
+          accent: "#fff700",
+          border: "#333333",
+          darker: "#000000",
+          bgLight: "#f3f4f6",
+          bgDark: "#111827",
+        },
+        // 20. Royal Blue & Silver
+        {
+          base: "#1e3a8a",
+          accent: "#e5e7eb",
+          border: "#1d4ed8",
+          darker: "#172554",
+          bgLight: "#e0f2fe",
+          bgDark: "#0f172a",
+        },
+      ];
+
+      const messages = [
+        "On this special day, we celebrate you! May your new year be filled with purpose, joy, and outstanding achievements. Wishing you a truly magnificent birthday celebration and a prosperous year ahead! 🥂✨",
+        "Happy Birthday! 🎂 May this day bring you as much happiness as you bring to everyone around you. Here's to another year of success, good health, and cherished moments with loved ones.",
+        "Wishing you a day filled with laughter, love, and light! May this new chapter of your life be the best one yet, filled with exciting opportunities and unforgettable memories. 🎉",
+        "Cheers to you on your special day! 🥂 May your birthday be sprinkled with fun and laughter. Have a fantastic day and an even better year ahead!",
+        "Happy Birthday! 🎈 May the coming year be full of blessings and joy. Enjoy your day to the fullest!",
+        "Sending you warmest birthday wishes! May your day be as wonderful and extraordinary as you are. Have a blast! 🥳",
+        "It's your special day! 🎁 May all your dreams and wishes come true. Have a celebration filled with love and laughter.",
+        "Wishing you a very Happy Birthday! 🌟 May your year be filled with success, happiness, and everything you've ever wished for.",
+        "Happy Birthday to a true gem! 💎 May your day be sparkling with joy and your year be filled with brilliance.",
+        "Celebrate big today! 🎊 You deserve all the happiness in the world. Wishing you a fantastic birthday and a great year ahead.",
+        "Happy Birthday! 🚀 May your year take off to new heights of success and happiness. Enjoy the ride!",
+        "Wishing you endless joy and boundless success on your birthday! 🌈 Have a colorful and amazing celebration.",
+        "Happy Birthday! 🕯️ May your light shine brighter this year than ever before. Have a truly magical day.",
+        "Here's to you! 🍻 Wishing you a birthday that's as cool and awesome as you are. Enjoy every moment!",
+        "Happy Birthday! 🌻 May your life continue to blossom with happiness, health, and prosperity.",
+        "Wishing you the happiest of birthdays! 🍰 Savor every moment and make sweet memories today.",
+        "Happy Birthday! 🏆 Wishing you a year of winning, achieving, and celebrating all your goals.",
+        "To a wonderful person on their birthday! 💌 May your day be filled with sweet surprises and happy moments.",
+        "Happy Birthday! 🎸 Rock on and have an amazing celebration. Wishing you a year full of great vibes.",
+        "Wishing you peace, love, and joy on your birthday! 🕊️ May your day be calm, bright, and beautiful.",
+      ];
+
+      // --- Elements ---
+      const nameInput = document.getElementById("nameInput");
+      const photoInput = document.getElementById("photoInput");
+      const userImage = document.getElementById("userImage");
+      const userName = document.getElementById("userName");
+      const birthdayMessage = document.getElementById("birthdayMessage");
+      const flyerElement = document.getElementById("flyer");
+      const regenThemeBtn = document.getElementById("regenThemeBtn");
+      const root = document.documentElement;
+
+      // --- Functions ---
+      function getRandomItem(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
+
+      function getThemeIndexByName(name) {
+        let hash = 0;
+        for (let i = 0; i < name.length; i++) {
+          hash = name.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        return Math.abs(hash) % themes.length;
+      }
+
+      function updateTheme(specificIndex) {
+        let theme;
+        if (
+          typeof specificIndex === "number" &&
+          specificIndex >= 0 &&
+          specificIndex < themes.length
+        ) {
+          theme = themes[specificIndex];
+        } else {
+          theme = getRandomItem(themes);
+        }
+
+        // Apply CSS variables
+        root.style.setProperty("--theme-base", theme.base);
+        root.style.setProperty("--theme-accent", theme.accent);
+        root.style.setProperty("--theme-border", theme.border);
+        root.style.setProperty("--theme-darker", theme.darker);
+        root.style.setProperty("--bg-light", theme.bgLight);
+        root.style.setProperty("--bg-dark", theme.bgDark);
+      }
+
+      function updateMessage() {
+        const message = getRandomItem(messages);
+        birthdayMessage.textContent = message;
+      }
+
+      // --- Event Listeners ---
+      nameInput.addEventListener("input", (e) => {
+        const val = e.target.value.trim();
+        userName.textContent = val || "[Celebrant Name]";
+        document.title = `IGSOSA Member Birthday Flyer for ${
+          val || "Celebrant"
+        }`;
+
+        // Update theme based on name
+        if (val.length > 0) {
+          const index = getThemeIndexByName(val);
+          updateTheme(index);
+        }
+
+        // Validation
+        const downloadBtn = document.getElementById("downloadBtn");
+        if (val.length > 0) {
+          downloadBtn.disabled = false;
+        } else {
+          downloadBtn.disabled = true;
+        }
+      });
+
+      photoInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            userImage.src = event.target.result;
+            // Trigger updates
+            updateTheme();
+            updateMessage();
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      regenThemeBtn.addEventListener("click", () => {
+        updateTheme(); // Random
+      });
+
+      // --- Download Logic ---
+      document
+        .getElementById("downloadBtn")
+        .addEventListener("click", function () {
+          const button = this;
+          button.innerHTML =
+            '<span class="material-symbols-outlined animate-spin">refresh</span> Generating...';
+          button.disabled = true;
+
+          html2canvas(document.getElementById("flyer"), {
+            scale: 2,
+            useCORS: true,
+            backgroundColor: null,
+            logging: false,
+            // Ensure we capture the current CSS variables state
+            onclone: (clonedDoc) => {
+              // Sometimes html2canvas needs help with dynamic styles if they aren't fully computed
+            },
+          })
+            .then((canvas) => {
+              const link = document.createElement("a");
+              const safeName =
+                userName.textContent
+                  .trim()
+                  .replace(/[^a-z0-9]/gi, "_")
+                  .toLowerCase() || "birthday-flyer";
+              link.download = `IGSOSA_${safeName}.png`;
+              link.href = canvas.toDataURL("image/png");
+              link.click();
+
+              button.innerHTML =
+                '<span class="material-symbols-outlined">check</span> Downloaded!';
+              setTimeout(() => {
+                button.innerHTML =
+                  '<span class="material-symbols-outlined">download</span> Download Flyer';
+                button.disabled = false;
+              }, 2000);
+            })
+            .catch((err) => {
+              console.error("Error generating image:", err);
+              button.innerHTML = "Error!";
+              alert("Could not generate image. Please check console.");
+              button.disabled = false;
+            });
+        });
+    </script>
   </body>
 </html>
