@@ -103,6 +103,20 @@
       id="flyer"
       class="relative w-full max-w-[640px] bg-theme-base rounded-xl shadow-2xl overflow-hidden flex flex-col items-center text-white border border-theme-border transition-colors duration-500"
     >
+      <!-- Background Image Layer -->
+      <div
+        id="backgroundImageLayer"
+        class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0"
+        style="opacity: 0.1"
+      >
+        <img
+          id="backgroundImage"
+          alt=""
+          class="w-full h-full object-cover blur-sm grayscale"
+          style="display: none"
+        />
+      </div>
+      <!-- Decorative Elements -->
       <div
         class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0"
       >
@@ -452,6 +466,7 @@
       const nameInput = document.getElementById("nameInput");
       const photoInput = document.getElementById("photoInput");
       const userImage = document.getElementById("userImage");
+      const backgroundImage = document.getElementById("backgroundImage");
       const userName = document.getElementById("userName");
       const birthdayMessage = document.getElementById("birthdayMessage");
       const flyerElement = document.getElementById("flyer");
@@ -525,7 +540,11 @@
         if (file) {
           const reader = new FileReader();
           reader.onload = (event) => {
-            userImage.src = event.target.result;
+            const imageData = event.target.result;
+            // Set both the circle image and background image
+            userImage.src = imageData;
+            backgroundImage.src = imageData;
+            backgroundImage.style.display = "block";
             // Trigger updates
             updateTheme();
             updateMessage();
