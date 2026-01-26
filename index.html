@@ -99,150 +99,258 @@
     </div>
 
     <!-- Flyer Container -->
-    <div
-      id="flyer"
-      class="relative w-full max-w-[640px] bg-theme-base rounded-xl shadow-2xl overflow-hidden flex flex-col items-center text-white border border-theme-border transition-colors duration-500"
-    >
-      <!-- Background Image Layer -->
+    <style>
+      @keyframes float-gentle {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+      @keyframes rotate-slow {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      /* Download-friendly solid styles */
+      .premium-title {
+        color: var(--theme-accent);
+        text-shadow:
+          0 0 30px var(--theme-accent),
+          0 2px 10px rgba(0, 0, 0, 0.3);
+      }
+      .glow-ring {
+        box-shadow:
+          0 0 30px rgba(251, 191, 36, 0.5),
+          0 0 60px rgba(251, 191, 36, 0.3),
+          0 8px 32px rgba(0, 0, 0, 0.4);
+      }
+      .solid-card {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+      }
+    </style>
+    <!-- Download Wrapper to capture full flyer with decorative elements -->
+    <div id="flyerWrapper" class="p-4">
       <div
-        id="backgroundImageLayer"
-        class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0"
-        style="opacity: 0.1"
+        id="flyer"
+        class="relative w-full max-w-[640px] bg-gradient-to-b from-theme-base via-theme-base to-theme-darker rounded-2xl shadow-2xl overflow-visible flex flex-col items-center text-white border-2 border-theme-accent/40 transition-colors duration-500"
+        style="
+          box-shadow:
+            0 25px 60px -15px rgba(0, 0, 0, 0.5),
+            0 0 40px rgba(251, 191, 36, 0.2);
+        "
       >
-        <img
-          id="backgroundImage"
-          alt=""
-          class="w-full h-full object-cover blur-sm grayscale"
-          style="display: none"
-        />
-      </div>
-      <!-- Decorative Elements -->
-      <div
-        class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0"
-      >
+        <!-- Background Image Layer -->
         <div
-          class="absolute -top-24 -right-24 w-64 h-64 bg-theme-accent/20 rounded-full blur-3xl transition-colors duration-500"
-        ></div>
-        <div
-          class="absolute top-1/2 -left-32 w-80 h-80 bg-theme-accent/10 rounded-full blur-3xl transition-colors duration-500"
-        ></div>
-        <div
-          class="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-t from-theme-accent/10 to-transparent opacity-50 transition-colors duration-500"
-        ></div>
-        <span
-          class="material-symbols-outlined absolute top-20 left-10 text-theme-accent/30 text-4xl animate-bounce transition-colors duration-500"
-          style="animation-duration: 3s"
-          >star</span
+          id="backgroundImageLayer"
+          class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0"
+          style="opacity: 0.15"
         >
-        <span
-          class="material-symbols-outlined absolute top-40 right-10 text-theme-accent/20 text-2xl animate-pulse transition-colors duration-500"
-          >celebration</span
-        >
-        <span
-          class="material-symbols-outlined absolute top-64 right-12 text-theme-accent/20 text-3xl transition-colors duration-500"
-          >local_activity</span
-        >
-      </div>
-      <header
-        class="relative z-10 flex flex-col items-center justify-center w-full pt-10 pb-2"
-      >
-        <div class="flex items-center gap-3 mb-2">
-          <div
-            class="bg-white/10 p-2 rounded-lg text-theme-accent transition-colors duration-500"
-          >
-            <img
-              src="IGSBlueLogo-newblue2.png"
-              alt="IGSOSA Logo"
-              class="h-8 w-auto"
-            />
-          </div>
-          <h2 class="text-2xl font-bold tracking-tight uppercase text-white">
-            IGSOSA '07
-          </h2>
+          <img
+            id="backgroundImage"
+            alt=""
+            class="w-full h-full object-fill blur-md scale-110"
+            style="display: none"
+          />
         </div>
+
+        <!-- Premium Decorative Elements -->
         <div
-          class="h-1 w-16 bg-theme-accent rounded-full mt-2 transition-colors duration-500"
-        ></div>
-      </header>
-      <main
-        class="relative z-10 flex flex-col items-center w-full px-6 py-6 text-center"
-      >
-        <div class="mb-4 relative">
-          <h1
-            class="text-3xl md:text-5xl font-extrabold text-theme-accent leading-none tracking-tight drop-shadow-sm transition-colors duration-500"
-          >
-            HAPPY BIRTHDAY
-          </h1>
+          class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0"
+        >
+          <!-- Rotating gradient orbs -->
+          <div
+            class="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-theme-accent/50 via-pink-500/20 to-transparent rounded-full blur-3xl transition-colors duration-500"
+            style="animation: rotate-slow 20s linear infinite"
+          ></div>
+          <div
+            class="absolute top-1/2 -left-48 w-[28rem] h-[28rem] bg-gradient-to-tr from-theme-accent/40 via-blue-500/15 to-transparent rounded-full blur-3xl transition-colors duration-500"
+            style="animation: rotate-slow 25s linear infinite reverse"
+          ></div>
+          <div
+            class="absolute -bottom-32 right-1/4 w-80 h-80 from-theme-accent/30 via-purple-500/20 to-transparent rounded-full blur-3xl transition-colors duration-500"
+          ></div>
+
+          <!-- Animated celebration icons -->
           <span
-            class="material-symbols-outlined absolute -top-4 -right-8 text-4xl text-white/80 rotate-12"
+            class="material-symbols-outlined absolute top-16 left-8 text-5xl text-theme-accent/40 transition-colors duration-500"
+            style="animation: float-gentle 4s ease-in-out infinite"
+            >auto_awesome</span
+          >
+          <span
+            class="material-symbols-outlined absolute top-32 right-8 text-4xl text-theme-accent/30 transition-colors duration-500"
+            style="animation: float-gentle 3.5s ease-in-out infinite 0.5s"
+            >celebration</span
+          >
+          <span
+            class="material-symbols-outlined absolute top-56 left-6 text-3xl text-white/20 transition-colors duration-500"
+            style="animation: float-gentle 5s ease-in-out infinite 1s"
+            >stars</span
+          >
+          <span
+            class="material-symbols-outlined absolute bottom-48 right-10 text-4xl text-theme-accent/25 transition-colors duration-500"
+            style="animation: float-gentle 4.5s ease-in-out infinite 0.3s"
+            >emoji_events</span
+          >
+          <span
+            class="material-symbols-outlined absolute bottom-64 left-10 text-3xl text-white/15 transition-colors duration-500"
+            style="animation: float-gentle 4s ease-in-out infinite 0.8s"
             >cake</span
           >
         </div>
-        <div class="mb-3 relative group">
-          <div
-            class="absolute inset-0 rounded-full border-2 border-dashed border-theme-accent/40 animate-[spin_10s_linear_infinite] transition-colors duration-500"
-          ></div>
-          <div
-            class="absolute -inset-2 bg-gradient-to-tr from-theme-accent/40 to-transparent rounded-full opacity-100 group-hover:opacity-100 transition-opacity duration-500"
-          ></div>
-          <div
-            class="relative size-64 md:size-72 rounded-full border-4 border-white/20 shadow-xl overflow-hidden bg-theme-base transition-colors duration-500"
-          >
-            <img
-              id="userImage"
-              alt="Celebrant Photo"
-              class="w-full h-full object-cover object-top"
-              src="IGSOSA_Birthday.png"
-            />
-          </div>
-        </div>
-        <div class="space-y-3 mb-8">
-          <h2
-            id="userName"
-            class="text-3xl md:text-4xl font-bold text-white tracking-tight"
-          >
-            [Celebrant Name]
-          </h2>
-          <div
-            class="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-white/10 border border-white/20"
-          >
-            <span
-              class="material-symbols-outlined text-theme-accent text-sm transition-colors duration-500"
-              >verified</span
+
+        <!-- Premium Header -->
+        <header
+          class="relative z-10 flex flex-col items-center justify-center w-full pt-12 pb-4"
+        >
+          <div class="flex items-center gap-4 mb-3">
+            <div
+              class="solid-card p-3 rounded-xl transition-colors duration-500"
             >
+              <img
+                src="IGSBlueLogo-newblue2.png"
+                alt="IGSOSA Logo"
+                class="h-10 w-auto drop-shadow-lg"
+              />
+            </div>
+            <h2
+              class="text-3xl font-extrabold tracking-tight uppercase text-white drop-shadow-lg"
+            >
+              IGSOSA '07
+            </h2>
+          </div>
+          <div
+            class="h-1 w-24 bg-gradient-to-r from-transparent via-theme-accent to-transparent rounded-full mt-2 transition-colors duration-500"
+          ></div>
+        </header>
+
+        <!-- Main Content -->
+        <main
+          class="relative z-10 flex flex-col items-center w-full px-6 py-4 text-center"
+        >
+          <!-- Premium Birthday Title -->
+          <div class="mb-6 relative">
+            <div
+              class="absolute -inset-6 bg-theme-accent/15 rounded-3xl blur-2xl"
+            ></div>
+            <h1
+              class="premium-title text-4xl md:text-6xl font-black leading-none tracking-tight drop-shadow-2xl relative"
+            >
+              HAPPY BIRTHDAY
+            </h1>
             <span
-              class="text-sm font-semibold text-gray-200 uppercase tracking-wide"
-              >Distinguished Grammarian</span
+              class="material-symbols-outlined absolute -top-5 -right-10 text-5xl text-theme-accent/80 drop-shadow-lg"
+              style="animation: float-gentle 2.5s ease-in-out infinite"
+              >auto_awesome</span
             >
           </div>
-        </div>
-        <div class="max-w-md mx-auto">
+
+          <!-- Premium Photo Frame -->
+          <div class="mb-6 relative">
+            <div
+              class="absolute -inset-6 rounded-full bg-gradient-to-tr from-theme-accent/40 via-transparent to-theme-accent/25 blur-lg"
+            ></div>
+            <!-- Spinning decorative ring -->
+            <div
+              class="absolute -inset-5 rounded-full border-[3px] border-dashed border-theme-accent/40"
+              style="animation: rotate-slow 15s linear infinite"
+            ></div>
+            <!-- Counter-rotating ring -->
+            <div
+              class="absolute -inset-3 rounded-full border-2 border-dotted border-white/20"
+              style="animation: rotate-slow 12s linear infinite reverse"
+            ></div>
+            <!-- Gradient border -->
+            <div
+              class="p-1 rounded-full bg-gradient-to-tr from-theme-accent via-white/30 to-theme-accent"
+            >
+              <div
+                class="relative size-72 md:size-80 rounded-full border-4 border-white/30 shadow-2xl overflow-hidden bg-theme-base transition-colors duration-500 glow-ring"
+              >
+                <img
+                  id="userImage"
+                  alt="Celebrant Photo"
+                  class="w-full h-full object-fill object-top"
+                  src="IGSOSA_Birthday.png"
+                />
+                <!-- Overlay gradient -->
+                <div
+                  class="absolute inset-0 from-theme-base/40 via-transparent to-white/5 pointer-events-none"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Name & Badge -->
+          <div class="space-y-4 mb-8">
+            <h2
+              id="userName"
+              class="text-4xl md:text-5xl font-black text-white tracking-tight drop-shadow-lg"
+              style="text-shadow: 0 4px 30px rgba(0, 0, 0, 0.4)"
+            >
+              [Celebrant Name]
+            </h2>
+            <div
+              class="solid-card inline-flex items-center gap-2 px-5 py-2 rounded-full"
+            >
+              <span
+                class="material-symbols-outlined text-theme-accent text-lg transition-colors duration-500"
+                >verified</span
+              >
+              <span
+                class="text-sm font-bold text-white uppercase tracking-widest"
+                >Distinguished Grammarian</span
+              >
+            </div>
+          </div>
+
+          <!-- Message Card -->
+          <div class="max-w-lg mx-auto relative">
+            <div
+              class="absolute -inset-3 bg-gradient-to-r from-theme-accent/20 via-white/5 to-theme-accent/20 rounded-2xl blur-xl"
+            ></div>
+            <div class="solid-card relative rounded-xl p-6">
+              <p
+                id="birthdayMessage"
+                class="text-base md:text-lg text-white/90 leading-relaxed font-medium"
+                style="text-shadow: 0 2px 15px rgba(0, 0, 0, 0.3)"
+              >
+                Wishing you a wonderful birthday celebration!
+              </p>
+            </div>
+          </div>
+        </main>
+
+        <!-- Premium Footer -->
+        <footer
+          class="relative z-10 w-full bg-gradient-to-t from-theme-darker via-theme-darker/95 to-transparent py-8 mt-6 border-t border-white/15 flex flex-col items-center justify-center gap-2 transition-colors duration-500"
+        >
           <p
-            id="birthdayMessage"
-            class="text-sm md:text-base text-gray-200 leading-relaxed"
+            class="text-base font-semibold text-white/80 uppercase tracking-[0.15em]"
           >
-            Wishing you a wonderful birthday celebration!
+            From all of us at IGSOSA '07
           </p>
-        </div>
-      </main>
-      <footer
-        class="relative z-10 w-full bg-theme-darker py-6 mt-4 border-t border-white/10 flex flex-col items-center justify-center gap-2 transition-colors duration-500"
-      >
-        <p class="text-sm font-medium text-gray-400 uppercase tracking-widest">
-          From all of us at IGSOSA '07
-        </p>
-        <!-- <div class="flex gap-4 mt-1">
-          <span
-            class="material-symbols-outlined text-gray-400 text-xl cursor-pointer hover:text-theme-accent transition-colors duration-500"
-            >language</span
-          >
-          <span
-            class="material-symbols-outlined text-gray-400 text-xl cursor-pointer hover:text-theme-accent transition-colors duration-500"
-            >mail</span
-          >
-        </div> -->
-      </footer>
+          <div class="flex gap-3 mt-1">
+            <span class="material-symbols-outlined text-theme-accent/60 text-xl"
+              >favorite</span
+            >
+            <span class="material-symbols-outlined text-theme-accent/60 text-xl"
+              >celebration</span
+            >
+            <span class="material-symbols-outlined text-theme-accent/60 text-xl"
+              >favorite</span
+            >
+          </div>
+        </footer>
+      </div>
     </div>
+    <!-- End flyerWrapper -->
 
     <!-- Download Button -->
     <button
@@ -566,15 +674,12 @@
             '<span class="material-symbols-outlined animate-spin">refresh</span> Generating...';
           button.disabled = true;
 
-          html2canvas(document.getElementById("flyer"), {
+          html2canvas(document.getElementById("flyerWrapper"), {
             scale: 2,
             useCORS: true,
             backgroundColor: null,
             logging: false,
-            // Ensure we capture the current CSS variables state
-            onclone: (clonedDoc) => {
-              // Sometimes html2canvas needs help with dynamic styles if they aren't fully computed
-            },
+            allowTaint: true,
           })
             .then((canvas) => {
               const link = document.createElement("a");
