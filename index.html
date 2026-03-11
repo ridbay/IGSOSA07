@@ -14,7 +14,7 @@
       rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dom-to-image-more@2.9.5/dist/dom-to-image-more.min.js"></script>
     <style>
       :root {
         --theme-base: 260 60% 15%;
@@ -122,6 +122,36 @@
           "GRAD" 0,
           "opsz" 24;
       }
+
+      /* Capture Mode for html2canvas */
+      .capture-mode * {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .capture-mode .mesh-bg {
+        background: linear-gradient(
+          135deg,
+          hsl(var(--theme-base)),
+          #1a1a1a,
+          #2d1b4e
+        ) !important;
+        background-size: cover !important;
+      }
+
+      .capture-mode .glass-card {
+        backdrop-filter: none !important;
+        background: rgba(255, 255, 255, 0.06) !important;
+      }
+
+      .capture-mode .premium-title {
+        /* Preserve gradients for dom-to-image-more */
+        filter: none !important;
+      }
+
+      .capture-mode .blur-2xl {
+        filter: blur(40px) !important;
+      }
     </style>
     <script id="tailwind-config">
       tailwind.config = {
@@ -151,7 +181,7 @@
           <span class="material-symbols-outlined text-theme-accent"
             >edit_note</span
           >
-          Flyer Customization
+          Birthday Flyer Customization
         </h3>
         <button
           id="regenThemeBtn"
@@ -249,7 +279,7 @@
                 />
               </div>
               <h2
-                class="text-lg font-black tracking-[0.2em] uppercase text-white/90 font-display"
+                class="text-lg font-black tracking-[0.2em] uppercase text-white/90 font-display whitespace-nowrap"
               >
                 IGSOSA '07
               </h2>
@@ -259,10 +289,10 @@
 
           <!-- Main Body -->
           <main
-            class="flex-1 flex flex-col items-center justify-center text-center"
+            class="flex-1 flex flex-col items-center justify-center text-center gap-6"
           >
             <!-- Dynamic Title -->
-            <div class="relative mb-6">
+            <div class="relative mb-1">
               <h1
                 class="premium-title text-2xl md:text-3xl font-black leading-tight tracking-tighter uppercase font-display italic"
               >
@@ -276,7 +306,7 @@
             </div>
 
             <!-- Enhanced Photo Frame -->
-            <div class="relative mb-6">
+            <div class="relative mb-1">
               <div
                 class="gold-border group-hover:scale-105 transition-transform duration-700"
               >
@@ -306,10 +336,10 @@
 
             <!-- Name & Badge -->
             <div class="space-y-3">
-              <div class="relative inline-block">
+              <div class="relative w-full">
                 <h2
                   id="userName"
-                  class="text-3xl md:text-4xl font-black text-white tracking-tight drop-shadow-2xl font-display break-words max-w-[500px] text-center"
+                  class="text-3xl md:text-4xl font-black text-white tracking-tight drop-shadow-2xl font-display break-words max-w-[500px] mx-auto text-center leading-tight"
                 >
                   [Celebrant Name]
                 </h2>
@@ -331,13 +361,12 @@
             </div>
 
             <!-- Message Card -->
-            <div class="mt-6 max-w-[320px] mx-auto italic">
+            <div class="mt-2 max-w-[320px] mx-auto italic text-center">
               <p
                 id="birthdayMessage"
                 class="text-sm md:text-base text-white/70 leading-relaxed font-light font-body"
               >
-                "May your special day be filled with as much light and joy as
-                you bring to the IGSOSA '07 family."
+                "May your special day be filled with as much light and joy."
               </p>
             </div>
           </main>
@@ -410,12 +439,59 @@
       ];
 
       const messages = [
-        "May your special day be filled with as much light and joy as you bring to the IGSOSA '07 family.",
+        "May your special day be filled with as much light and joy.",
         "To a truly distinguished Grammarian, may your new year be marked by unprecedented success and wellness.",
         "Celebrating a legacy of excellence on your special day. Keep shining and inspiring us all!",
         "Wishing you a magnificent birthday filled with love, laughter, and the company of great Grammarians.",
         "Here's to another year of brilliance! May your path be illuminated with joy and prosperity.",
         "On this day, we honor you. May your birthday be as extraordinary as your contribution to our community.",
+        "Sending you warm wishes for a birthday that's as remarkable as your spirit.",
+        "May your new age be blessed with happiness that knows no bounds.",
+        "Cheering for a fantastic Grammarian! May your year ahead be full of pleasant surprises.",
+        "Happy birthday! May your day be a beautiful reflection of the joy you bring to others.",
+        "Wishing you a year of breaking boundaries and setting new standards of excellence.",
+        "To a fellow Grammarian, may your birthday be the start of your most fulfilling year yet.",
+        "May the light of IGS continue to shine through you as you celebrate another wonderful year.",
+        "Wishing you joy, peace, and the kind of success that leaves a lasting legacy.",
+        "Happy birthday! May your celebration be as vibrant and spirited as our IGSOSA family.",
+        "Here's to a year of health, wealth, and countless reasons to smile.",
+        "May your birthday be a masterclass in celebration and happiness!",
+        "Wishing you the strength to reach new heights and the wisdom to enjoy the view.",
+        "To an exceptional individual, may your big day be filled with everything you love most.",
+        "Happy birthday! May the future hold even more brilliance for you than the past.",
+        "May your special day be a perfect blend of nostalgia and new, exciting beginnings.",
+        "Wishing you a day of relaxation and a year of unstoppable momentum.",
+        "To a true leader in our community, may your birthday be as inspiring as you are.",
+        "May every moment of your birthday be filled with the warmth of friendship and family.",
+        "Happy birthday! Keep blazing trails and making the IGSOSA '07 class proud.",
+        "Wishing you a monumental year ahead, filled with growth and achievement.",
+        "May your birthday cake be as sweet as the memories we share as Grammarians.",
+        "To a lifelong learner and achiever, may your new year be your most educational yet.",
+        "Happy birthday! May your journey ahead be paved with gold and good fortune.",
+        "Wishing you a day that's as grand as the halls of Ibadan Grammar School.",
+        "May your birthday marks the beginning of a season of harvest for all your hard work.",
+        "Cheers to another year of excellence! You make the IGSOSA legacy look easy.",
+        "Wishing you a birthday that is just the beginning of a year full of happy moments.",
+        "May you find joy in the simple things and fulfillment in your greatest ambitions.",
+        "Happy birthday to a shining star of the '07 set. Your light is truly unique.",
+        "Wishing you a day of endless laughter and a lifetime of true happiness.",
+        "May your birthday be as legendary as the traditions of our great alma mater.",
+        "To a person of substance and style, happy birthday and many happy returns.",
+        "Wishing you a year where every dream you chase becomes a reality you live.",
+        "Happy birthday! May your spirit remains as youthful as our school days.",
+        "May the grace of God follow you into this new year of your life.",
+        "Wishing you a birthday that's as iconic as the IGS blue and white.",
+        "Cheers to your health and happiness! The best is yet to come for you.",
+        "Happy birthday! May your impact on the world continue to grow and inspire.",
+        "Wishing you a day of peace and a year of purposeful living.",
+        "To a brother/sister in the IGSOSA bond, have a birthday that's truly spectacular.",
+        "May your path be clear and your heart be light as you embark on this new age.",
+        "Happy birthday! May you be surrounded by love today and every day.",
+        "Wishing you a birthday that is as timeless and classic as our school's pride.",
+        "May your new year be a symphony of success and a gallery of great memories.",
+        "Happy birthday! Here's to surviving and thriving another year with grace.",
+        "Wishing you a day of favor and a year of divine acceleration.",
+        "To a distinguished Grammarian, may your light never dim and your joy never end.",
       ];
 
       const elements = {
@@ -475,42 +551,49 @@
         .getElementById("regenThemeBtn")
         .addEventListener("click", () => updateTheme());
 
+      async function waitForImages(container) {
+        const images = container.querySelectorAll("img");
+        const promises = [];
+
+        images.forEach((img) => {
+          if (!img.complete) {
+            promises.push(
+              new Promise((resolve) => {
+                img.onload = img.onerror = resolve;
+              }),
+            );
+          }
+        });
+
+        return Promise.all(promises);
+      }
+
       elements.downloadBtn.addEventListener("click", async function () {
         const originalContent = this.innerHTML;
+        const flyer = document.getElementById("flyer");
+
         this.innerHTML =
           '<span class="material-symbols-outlined animate-spin">sync</span> Rendering...';
         this.disabled = true;
 
         try {
-          const canvas = await html2canvas(document.getElementById("flyer"), {
-            scale: 3, // Ultra High Res
-            useCORS: true,
-            backgroundColor: null,
-            logging: false,
-            allowTaint: true,
-            windowWidth: 600,
-            onclone: (clonedDoc) => {
-              const f = clonedDoc.getElementById("flyer");
-              f.style.borderRadius = "2.5rem";
-              f.style.transform = "none";
-              f.style.margin = "0";
-              f.style.position = "relative";
-              f.style.height = "auto";
-              f.style.minHeight = "750px";
+          /* Enable capture mode */
+          document.body.classList.add("capture-mode");
 
-              // Fix gradient text export issue
-              const title = clonedDoc.querySelector(".premium-title");
-              if (title) {
-                title.style.webkitTextFillColor = "hsl(var(--theme-accent))";
-                title.style.color = "hsl(var(--theme-accent))";
-                title.style.background = "none";
-              }
-            },
+          await new Promise((r) => setTimeout(r, 200)); // allow DOM repaint
+          await waitForImages(flyer);
+          await document.fonts.ready;
+
+          const dataUrl = await domtoimage.toPng(flyer, {
+            quality: 1,
+            scale: 4,
+            width: flyer.offsetWidth,
+            height: flyer.offsetHeight,
           });
 
           const link = document.createElement("a");
-          link.download = `IGSOSA_2024_${elements.userName.textContent.replace(/\s+/g, "_")}.png`;
-          link.href = canvas.toDataURL("image/png", 1.0);
+          link.download = `IGSOSA_${elements.userName.textContent.replace(/\s+/g, "_")}.png`;
+          link.href = dataUrl;
           link.click();
 
           this.innerHTML =
@@ -519,6 +602,9 @@
           console.error(err);
           this.innerHTML = "Error!";
         } finally {
+          /* Disable capture mode */
+          document.body.classList.remove("capture-mode");
+
           setTimeout(() => {
             this.innerHTML = originalContent;
             this.disabled = false;
